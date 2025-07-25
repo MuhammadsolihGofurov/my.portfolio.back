@@ -41,7 +41,7 @@ public class SpringConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/about", "/about/**", "/public/**", "/api/public/**").permitAll()
+                        .requestMatchers("/about", "/about/**", "/results/**", "/api/public/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults());

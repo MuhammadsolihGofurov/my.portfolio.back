@@ -4,6 +4,7 @@ package my.portfolio.back.service;
 import my.portfolio.back.dtos.LocalizedDto;
 import my.portfolio.back.entity.AboutEntity;
 import my.portfolio.back.enums.AppLang;
+import my.portfolio.back.enums.JobTypes;
 import my.portfolio.back.repository.AboutRepository;
 import my.portfolio.back.utils.LocalizationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,15 +20,17 @@ public class AboutService {
     private AboutRepository aboutRepository;
 
 
-    public LocalizedDto getFirstAboutEntity(AppLang lang) {
+    public LocalizedDto getFirstAboutEntity(AppLang lang, JobTypes jobType) {
+        Optional<AboutEntity> optional = aboutRepository.findByJobType(jobType);
         try {
-            AboutEntity entity = aboutRepository.findById(1).orElse(null);
+            AboutEntity entity = optional.get();
+
             if (entity == null) return null;
 
             LocalizedDto dto = LocalizationUtil.localize(
                     entity,
                     lang,
-                    List.of("bannerTitle", "bannerContent", "aboutContent",  "footerText")
+                    List.of("bannerTitle", "bannerContent", "aboutContent", "footerText")
             );
 
             dto.put("aboutPicture", entity.getAboutPicture());

@@ -1,2 +1,6 @@
-GET http://localhost:8888/about
+GET http://localhost:8888/about/type=FULLSTACK
 Accept-Language: jp
+
+### RESULT GET
+GET http://localhost:8888/results/type=FULLSTACK
+Accept-Language: en
